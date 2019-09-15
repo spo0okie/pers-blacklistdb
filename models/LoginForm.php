@@ -59,15 +59,16 @@ class LoginForm extends Model
      */
 	public function login()
 	{
-		$authUser = \Yii::$app->ldap->authenticate($this->username, $this->password);
+		if (is_null($user=$this->getUser())) return false;//unknown user
+		$authUser = \Yii::$app->ldap->auth()->attempt($this->username, $this->password);
 
 		if ($authUser)
 			return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
 
-		if ($this->validate())
+		/*if ($this->validate())
 		{
 			return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
-		}
+		}*/
 
 		return false;
 	}
@@ -80,7 +81,7 @@ class LoginForm extends Model
     public function getUser()
     {
         if ($this->_user === false) {
-            $this->_user = User::findByUsername($this->username);
+            $this->_user = Users::findByLogin($this->username);
         }
 
         return $this->_user;
