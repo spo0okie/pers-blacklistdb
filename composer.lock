@@ -4,8 +4,18 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "05251a4beeaa8dfa7849f73389718d5f",
+    "content-hash": "be984adee087b83bce963802cde9b1bf",
     "packages": [
+        {
+            "name": "adldap/adLDAP",
+            "version": "4.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/adldap/adLDAP",
+                "reference": "v4.0.4"
+            },
+            "type": "library"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.4.1",
@@ -3653,7 +3663,14 @@
             "time": "2019-08-13T14:34:28+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "4.0-stable",
+            "alias_normalized": "4.0.0.0",
+            "version": "4.0.4.0",
+            "package": "adldap/adldap"
+        }
+    ],
     "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,

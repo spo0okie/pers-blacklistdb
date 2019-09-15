@@ -2,6 +2,7 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$ldap = require __DIR__ . '/ldap.php';
 
 $config = [
     'id' => 'basic',
@@ -43,6 +44,7 @@ $config = [
             ],
         ],
         'db' => $db,
+	    'ldap' => $ldap,
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
@@ -52,6 +54,8 @@ $config = [
         ],
         */
     ],
+
+
     'params' => $params,
 ];
 

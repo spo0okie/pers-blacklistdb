@@ -17,7 +17,8 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.14",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0"
+        "yiisoft/yii2-swiftmailer": "~2.0.0 || ~2.1.0",
+        "adldap/adldap": "4.0.4 as 4.0-stable"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
@@ -64,6 +65,18 @@
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
+        },
+        {
+            "type": "package",
+            "package": {
+                "name": "adldap/adLDAP",
+                "version": "4.0.4",
+                "source": {
+                    "url": "https://github.com/adldap/adLDAP",
+                    "type": "git",
+                    "reference": "v4.0.4"
+                }
+            }
         }
     ]
 }
