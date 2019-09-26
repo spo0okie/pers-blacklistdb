@@ -40,7 +40,14 @@ AppAsset::register($this);
         'items' => [
             ['label' => 'Home', 'url' => ['/site/index']],
             ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Администрирование',
+                'items' => [
+	                ['label' => 'Роли', 'url' => ['/rbac/role']],
+	                ['label' => 'Правила', 'url' => ['/rbac/rule']],
+	                ['label' => 'Разрешения', 'url' => ['/rbac/permission']],
+	                ['label' => 'Назначение', 'url' => ['/rbac/assignment']],
+                ],
+            ],
             Yii::$app->user->isGuest ? (
                 ['label' => 'Вход', 'url' => ['/site/login']]
             ) : (

@@ -24,7 +24,10 @@ $config = [
             'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
         ],
-        'errorHandler' => [
+	    'authManager' => [
+		    'class' => 'yii\rbac\DbManager',
+	    ],
+	    'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
@@ -45,16 +48,22 @@ $config = [
         ],
         'db' => $db,
 	    'ldap' => $ldap,
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
-    ],
 
+    ],
+	'modules' => [
+		'gridview' => ['class' => 'kartik\grid\Module'],
+		'rbac' =>  [
+			'class' => 'johnitvn\rbacplus\Module',
+			'userModelLoginField'=>'Login'
+		]
+	],
 
     'params' => $params,
 ];
