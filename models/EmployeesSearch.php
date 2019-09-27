@@ -5,6 +5,7 @@ namespace app\models;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\Employees;
+use yii\db\ActiveQuery;
 
 /**
  * EmployeesSearch represents the model behind the search form of `app\models\Employees`.
@@ -40,12 +41,17 @@ class EmployeesSearch extends Employees
      */
     public function search($params)
     {
-        $query = Employees::find();
 
-        // add conditions that should always apply here
+    	/*
+    	 * Делаем извращенский запрос примерно следующего смысла:
+    	 * выбери мне всех сотрудников и максимальные номера записей по нима
+    	 * и через джойн выбери мне все эти записи
+    	 * */
+		$query=static::reqLast();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' =>  $query,
+	        'pagination' => false,
         ]);
 
         $this->load($params);
@@ -56,13 +62,9 @@ class EmployeesSearch extends Employees
             return $dataProvider;
         }
 
-        // grid filtering conditions
+        // убираем удаленные записи
         $query->andFilterWhere([
-            'id' => $this->id,
-            'employee_id' => $this->employee_id,
-            'updated_at' => $this->updated_at,
-            'updated_by' => $this->updated_by,
-            'deleted' => $this->deleted,
+            'deleted' => 0,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

@@ -22,6 +22,10 @@ use Yii;
  */
 class Employees extends \yii\db\ActiveRecord
 {
+	static $title='Сотрудники';
+
+	static $cache=null;
+
     /**
      * {@inheritdoc}
      */
@@ -29,6 +33,14 @@ class Employees extends \yii\db\ActiveRecord
     {
         return 'employees';
     }
+
+	/**
+	 * {@inheritdoc}
+	 */
+	public static function primaryKey()
+	{
+		return ["employee_id"];
+	}
 
     /**
      * {@inheritdoc}
@@ -79,16 +91,57 @@ class Employees extends \yii\db\ActiveRecord
 	public function beforeSave($insert)
 	{
 		if (parent::beforeSave($insert)) {
+			unset($this->id);
 			//обновлено текущим пользователем
 			$this->updated_by=Yii::$app->user->id;
 			//если номер сотрудника не выставлен, то новый
-			if (!$this->employee_id) $this->employee_id=1;//static::find()->max('employee_id')+1;
+			if (!$this->employee_id) $this->employee_id=static::find()->max('employee_id')+1;
 			//если флажок удаления не выставлен явно, то ноль
 			if (is_null($this->deleted)) $this->deleted=0;
 			return true;
 		} else {
 			return false;
 		}
+	}
+
+	/**
+	 * формирует код для поиска всех записей
+	 * описана отдельной функцией по той причине, что у нас нестандартная работа с таблицей
+	 * и по сути запрос всех записей не является запросом всех, а на самом деле
+	 * запрашивает последние версии записей о каждом сотруднике
+	 */
+	static public function reqLast() {
+		return static::find()
+			->select('*')
+			->innerJoin(
+				'(SELECT max(id) max_id, employee_id FROM employees GROUP BY employee_id) i',
+				'employees.id=i.max_id'
+			);
+	}
+
+	/**
+	 * возвращает все записи + кэширует
+	 * @return array|null|\yii\db\ActiveRecord[]
+	 */
+	static public function fetchAll()
+	{
+		/**
+		 * Есть кэш - отдаем его
+		 * нет кэша - делаем его и отдаем
+		 */
+		return (!is_null(static::$cache))?
+			static::$cache
+			:
+			static::$cache=static::reqLast()->all();
+	}
+
+	/**
+	 * возвращает все актуальные значения какого-то поля
+	 * @param string $field
+	 * @return array
+	 */
+	static public function fetchFields($field='name') {
+		return \yii\helpers\ArrayHelper::map(static::fetchAll(), 'employee_id', $field);
 	}
 
 }

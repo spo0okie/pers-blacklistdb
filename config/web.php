@@ -6,6 +6,7 @@ $ldap = require __DIR__ . '/ldap.php';
 
 $config = [
     'id' => 'basic',
+	'name' => 'Черный список сотрудников',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
