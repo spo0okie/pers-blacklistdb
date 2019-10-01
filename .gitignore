@@ -31,3 +31,12 @@ tests/_support/_generated
 
 #vagrant folder
 /.vagrant
+
+#private configs
+/config/ldap.php
+/config/db.php
+
+#import source
+blacklist.txt
+import.mysql
+

@@ -9,9 +9,10 @@ use Yii;
  * @property int $Uvolen Уволен
  * @property string $Login Логин (AD)
  */
-class Users extends \yii\db\ActiveRecord
+class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 {
 	public static $title="Сотрудники";
+	public static $users=[];
 
 	/**
 	 * @inheritdoc
@@ -51,30 +52,9 @@ class Users extends \yii\db\ActiveRecord
 	/**
 	 * @inheritdoc
 	 */
-	public static function findIdentity($id)
-	{
-		return isset(self::$users[$id]) ? new static(self::$users[$id]) : null;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
-	public static function findIdentityByAccessToken($token, $type = null)
-	{
-		foreach (self::$users as $user) {
-			if ($user['accessToken'] === $token) {
-				return new static($user);
-			}
-		}
-		return null;
-	}
-
-	/**
-	 * @inheritdoc
-	 */
 	public function getAuthKey()
 	{
-		return $this->authKey;
+		return $this->auth_key;
 	}
 
 	/**
@@ -110,4 +90,50 @@ class Users extends \yii\db\ActiveRecord
 		if ($asArray) $query->select([$keyField, $valueField])->asArray();
 		return \yii\helpers\ArrayHelper::map($query->all(), $keyField, $valueField);
 	}
+
+	/**
+	 * @inheritdoc
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	public static function findByLogin($login){
+		$login=mb_strtolower($login);
+		//при поиске по логину предпочитаем сначала искать среди трудоустроенных
+		$list = static::find()->select(['id','Login','Uvolen'])->orderBy(['Uvolen'=>'ASC','id'=>'DESC'])->all();
+		foreach ($list as $item) {
+			if (!strcmp(mb_strtolower($item['Login']),$login)) return $item;
+		}
+		return null;
+	}
+
+
+	/**
+	 * Generates "remember me" authentication key
+	 */
+	public function generateAuthKey()
+	{
+		$this->auth_key = Yii::$app->security->generateRandomString();
+	}
+
+	/**
+	 * Generates "remember me" authentication key
+	 */
+	public function generateAccessToken()
+	{
+		$this->access_token = Yii::$app->security->generateRandomString();
+	}
+
+	public static function findIdentity($id)
+	{
+		return static::findOne(['id' => $id]);
+	}
+
+	public static function findIdentityByAccessToken($token, $type = null)
+	{
+		return static::findOne(['access_token' => $token]);
+	}
+
 }

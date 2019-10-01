@@ -2,9 +2,11 @@
 
 $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
+$ldap = require __DIR__ . '/ldap.php';
 
 $config = [
     'id' => 'basic',
+	'name' => 'Черный список сотрудников',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'aliases' => [
@@ -20,10 +22,13 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'app\models\Users',
             'enableAutoLogin' => true,
         ],
-        'errorHandler' => [
+	    'authManager' => [
+		    'class' => 'yii\rbac\DbManager',
+	    ],
+	    'errorHandler' => [
             'errorAction' => 'site/error',
         ],
         'mailer' => [
@@ -43,15 +48,24 @@ $config = [
             ],
         ],
         'db' => $db,
-        /*
+	    'ldap' => $ldap,
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+
     ],
+	'modules' => [
+		'gridview' => ['class' => 'kartik\grid\Module'],
+		'rbac' =>  [
+			'class' => 'johnitvn\rbacplus\Module',
+			'userModelLoginField'=>'Login'
+		]
+	],
+
     'params' => $params,
 ];
 

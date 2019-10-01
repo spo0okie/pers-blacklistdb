@@ -7,46 +7,40 @@ $this->title = 'My Yii Application';
 <div class="site-index">
 
     <div class="jumbotron">
-        <h1>Congratulations!</h1>
-
-        <p class="lead">You have successfully created your Yii-powered application.</p>
-
-        <p><a class="btn btn-lg btn-success" href="http://www.yiiframework.com">Get started with Yii</a></p>
+        <h1>Ямалдорстрой</h1>
+        <p>База данных неблагоднадежных сотрудников</p>
+        <img src="/web/img/logo200.png" />
     </div>
 
     <div class="body-content">
 
         <div class="row">
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
+                <h2>Назначение</h2>
+                База данных создана отделом ИТ для отдела кадров по прямому указанию президента компании Ямалдорстрой
+                Гайнутдинова Марса Ахметовича.
+                Предназначена для внесения в нее всех сотрудников, трудоустройство которых в компании нежелательно.
+                Доступна только только из сети компании.
+            </div>
+            <div class="col-lg-4 text-center">
+                <h2>Особенности</h2>
+                При разработке бд большое внимание было уделено к защите данных,
+                поэтому все изменения делаются только авторизованными пользователями и вносятся в журнал.
+                Журнал изменений всегда можно посмотреть, а удаленные записи восстановить.
+                Восстановление удаленных записей возможно только через службу ИТ.
             </div>
             <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/forum/">Yii Forum &raquo;</a></p>
+                <h2>Доступ</h2>
+                Если вы видите эту страницу, значит у вас нет доступа на просмотр БД.
+                Для работы с базой необходимо быть авторизоыванным пользователем.
+                Доступ пользователю к базе предоставляется отделом ИТ по требованию руководителя отдела кадров.
+                Доступ может быть предоставлен на просмотр и изменение.
+                Если доступ уже предоставлен, то нужно авторизоваться, нажав "вход" в верхнем меню.
             </div>
-            <div class="col-lg-4">
-                <h2>Heading</h2>
-
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
-
-                <p><a class="btn btn-default" href="http://www.yiiframework.com/extensions/">Yii Extensions &raquo;</a></p>
-            </div>
+        </div>
+        <br />
+        <div>
+            Все несанкционированные попытки доступа будут внесены в журнал и могут послужить основанием для служебного расследования.
         </div>
 
     </div>
