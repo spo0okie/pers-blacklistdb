@@ -7,6 +7,11 @@ use kartik\typeahead\Typeahead;
 /* @var $this yii\web\View */
 /* @var $model app\models\Employees */
 /* @var $form yii\widgets\ActiveForm */
+
+$positions=\app\models\Employees::fetchFields('position');
+$reasons=\app\models\Employees::fetchFields('reason');
+$employments=\app\models\Employees::fetchFields('employment');
+
 ?>
 
 <div class="employees-form">
@@ -16,29 +21,32 @@ use kartik\typeahead\Typeahead;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
+
 	<?= $form->field($model, 'position')->widget(Typeahead::classname(), [
-		'options' => ['placeholder' => 'Наберите или выберите название','autocomplete'=>'on'],
+		'options' => ['autocomplete'=>'off'],
 		'pluginOptions' => ['highlight'=>true],
-		'dataset' => [[	'local' => \app\models\Employees::fetchFields('position'),	'limit' => '10']]
+		'defaultSuggestions' => $positions,
+		'dataset' => [[	'local' => $positions,	'limit' => '10']]
     ]); ?>
 
-
-	<?= $form->field($model, 'reason')->widget(Typeahead::classname(), [
-		'options' => ['placeholder' => 'Наберите или выберите название','autocomplete'=>'on'],
+	<?= $form->field($model, 'employment')->widget(Typeahead::classname(), [
+		'options' => ['autocomplete'=>'off'],
 		'pluginOptions' => ['highlight'=>true],
-		'dataset' => [[	'local' => \app\models\Employees::fetchFields('reason'),	'limit' => '10']]
+		'defaultSuggestions' => $employments,
+		'dataset' => [[	'local' => $employments,	'limit' => '10']]
 	]); ?>
 
-	<?= $form->field($model, 'employment')->widget(Typeahead::classname(), [
-		'options' => ['placeholder' => 'Наберите или выберите название','autocomplete'=>'on'],
+	<?= $form->field($model, 'reason')->widget(Typeahead::classname(), [
+		'options' => ['autocomplete'=>'off'],
 		'pluginOptions' => ['highlight'=>true],
-		'dataset' => [[	'local' => \app\models\Employees::fetchFields('employment'),	'limit' => '10']]
+		'defaultSuggestions' => $reasons,
+		'dataset' => [[	'local' => $reasons,	'limit' => '10']]
 	]); ?>
 
     <?= $form->field($model, 'comment')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Сохранить', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

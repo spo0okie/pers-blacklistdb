@@ -9,6 +9,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\web\ForbiddenHttpException;
 use yii\filters\VerbFilter;
+use yii\data\ActiveDataProvider;
+
 
 /**
  * EmployeesController implements the CRUD actions for Employees model.
@@ -55,7 +57,11 @@ class EmployeesController extends Controller
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
-        ]);
+	        'dataProvider' => new ActiveDataProvider([
+		        'query' =>  \app\models\Employees::reqHistory($id),
+		        'pagination' => false,
+	        ])
+	    ]);
     }
 
     /**

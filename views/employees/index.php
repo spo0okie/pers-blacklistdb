@@ -10,6 +10,17 @@ use kartik\grid\GridView;
 
 $this->title = \app\models\Employees::$title;
 $this->params['breadcrumbs'][] = $this->title;
+
+$this->registerJs("
+    $('tbody td').on('click', function (e) {
+        // Получить ближайший ID в <tr> из data-key атрибута
+        var id = $(this).closest('tr').data('key');
+        if(e.target == this)
+            location.href = '" . \yii\helpers\Url::to(['employees/view']) . "?id=' + id;
+    });
+", yii\web\View::POS_END);
+
+
 ?>
 <div class="employees-index">
 
@@ -24,6 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'persistResize' => true,
+	    'hover'=>true,
 	    'layout' => '{items}',
 	    'columns' => [
             'name',
@@ -31,7 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'reason',
             'employment',
             'comment',
-            ['class' => 'yii\grid\ActionColumn'],
+            //['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
 

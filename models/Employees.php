@@ -136,12 +136,26 @@ class Employees extends \yii\db\ActiveRecord
 	}
 
 	/**
-	 * возвращает все актуальные значения какого-то поля
+	 * возвращает все актуальные уникальные значения какого-то поля
 	 * @param string $field
 	 * @return array
 	 */
 	static public function fetchFields($field='name') {
-		return \yii\helpers\ArrayHelper::map(static::fetchAll(), 'employee_id', $field);
+		$list = static::find()
+			->select($field)
+			->distinct($field)
+			->innerJoin(
+				'(SELECT max(id) max_id, employee_id FROM employees GROUP BY employee_id) i',
+				'employees.id=i.max_id'
+			)
+			->where('deleted=0')->all();
+		return \yii\helpers\ArrayHelper::getColumn($list, $field);
 	}
 
+	static public function reqHistory($id) {
+		return static::find()
+			->select('*')
+			->Where(['employee_id'=>$id])
+			->orderBy(['id'=>SORT_DESC]);
+	}
 }
