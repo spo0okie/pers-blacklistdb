@@ -28,11 +28,11 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 	public function rules()
 	{
 		return [
-			[['id', 'Ename', 'Uvolen', ], 'required'],
+			[['Ename', 'Uvolen', ], 'required'],
 			[['Uvolen'], 'integer'],
-			[['id' ], 'string', 'max' => 16],
+			//[['id' ], 'string', 'max' => 16],
 			[['Ename', 'Login'], 'string', 'max' => 255],
-			[['id'], 'unique'],
+			//[['id'], 'unique'],
 		];
 	}
 
@@ -44,7 +44,7 @@ class Users extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 		return [
 			'id' => 'Табельный номер',
 			'Ename' => 'Полное имя',
-			'Uvolen' => 'Уволен',
+			'Uvolen' => 'Отключен',
 			'Login' => 'Логин (AD)',
 		];
 	}

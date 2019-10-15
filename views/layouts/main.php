@@ -40,6 +40,7 @@ AppAsset::register($this);
         'items' => [
             Yii::$app->user->can('admin_access')?['label' => 'Администрирование',
                 'items' => [
+	                ['label' => 'Пользователи', 'url' => ['/users/index']],
 	                ['label' => 'Роли', 'url' => ['/rbac/role']],
 	                ['label' => 'Правила', 'url' => ['/rbac/rule']],
 	                ['label' => 'Разрешения', 'url' => ['/rbac/permission']],
