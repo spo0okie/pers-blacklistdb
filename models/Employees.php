@@ -49,9 +49,9 @@ class Employees extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['name', 'position', 'reason'], 'string', 'max' => 64],
-            [['employment'], 'string', 'max' => 32],
-            [['comment'], 'string', 'max' => 255],
+	        [['employment'], 'string', 'max' => 32],
+            [['name', 'position'], 'string', 'max' => 64],
+            [['comment', 'reason'], 'string', 'max' => 255],
         ];
     }
 
